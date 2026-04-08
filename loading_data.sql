@@ -1,22 +1,22 @@
 /*
 
 -- In PowerShell, run the following commands to download the CSV files to your local machine:
-Test-Path "C:\Users\AndieTran\OneDrive - Gresham House\Documents\Documents\Learning\CFI\Specialization BIDA\Group Course_SQL\Course_SQL Fundamentals\SQL Fundamentals - Andie Tran\Delivr"
+Test-Path "C:\Users\AndieTran\Delivr"
 
 
-Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/732c094b30a2e794d0b12b12547587a903126f68/meals.csv" -OutFile c:\Users\AndieTran\Downloads\Delivery\meals.csv"
-Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/606e6e9165c25477db078996fa7e0a3e994b93d3/orders.csv" -OutFile 'C:\Users\AndieTran\Downloads\Delivery\orders.csv'
-Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/10d9ad146a85010d836cfc93870aa464951f0640/stock.csv" -OutFile 'C:\Users\AndieTran\Downloads\Delivery\stock.csv'
+Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/732c094b30a2e794d0b12b12547587a903126f68/meals.csv" -OutFile 'C:\Users\AndieTran\Delivr\meals.csv'
+Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/606e6e9165c25477db078996fa7e0a3e994b93d3/orders.csv" -OutFile 'C:\Users\AndieTran\Delivr\orders.csv'
+Invoke-WebRequest -Uri "https://assets.datacamp.com/production/repositories/4016/datasets/10d9ad146a85010d836cfc93870aa464951f0640/stock.csv" -OutFile 'C:\Users\AndieTran\Delivr\stock.csv'
 
 */
 
 -- create master key once
-CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'DA123456789!'; -- change this to a strong password and keep it secure
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Your-Password-Here!'; -- change this to a strong password and keep it secure
 
 -- create credential for Azure Blob Storage access
 CREATE DATABASE SCOPED CREDENTIAL MyCred
 WITH IDENTITY = 'SHARED ACCESS SIGNATURE',
-SECRET = 'sv=2025-11-05&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-04-10T16:23:51Z&st=2026-04-08T08:08:51Z&spr=https&sig=u8gaM%2FR3NnjluHyB%2BME0UFTOzoCafuLsZW7IbvdVWD4%3D'; --generate SAS token in a short period of time for security reasons
+SECRET = 'sv=...'; --generate SAS token in a short period of time for security reasons
 
 -- verify it exists
 SELECT name
@@ -26,7 +26,7 @@ FROM sys.database_scoped_credentials;
 CREATE EXTERNAL DATA SOURCE MyBlobStorage
 WITH (
     TYPE = BLOB_STORAGE,
-    LOCATION = 'https://stdatafordw.blob.core.windows.net/mixeddw/delivr',
+    LOCATION = 'https://<storage-account>.blob.core.windows.net/<container>',
     CREDENTIAL = MyCred
 );
 
