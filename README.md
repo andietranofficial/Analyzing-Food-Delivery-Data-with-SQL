@@ -5,7 +5,7 @@ The project is to analyze the business performance of a fictional food delivery 
 
 1. Evaluate company performance by analyzing revenue, cost and profit.
 
-2. 
+2. Calculate the registrations and active users KPIs, and use window functions to calculate the user growth and retention rates. 
 
 ## Steps:
 
